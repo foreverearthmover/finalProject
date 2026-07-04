@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Week 4</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+        }
+
+        body {
+            position: relative;
+            min-height: 200vh; 
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            align-items: center;
+            margin: 3rem auto;
+            z-index: 1;
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .image-wrapper img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .pagelink {
+            position: absolute;
+
+            border: 2px solid red;
+            background: rgba(255,0,0,0.2);
+        }
+
+        .pagelink-1 {
+            left: 35%;
+            top: 20%;
+
+            width: 6%;
+            height: 9%;
+        }
+    
+        .pagelink-2 {
+            left: 46%;
+            top: 10%;
+
+            width: 6%;
+            height: 9%;
+        }
+
+        .pagelink-3 {
+            left: 55%;
+            top: 23%;
+
+            width: 6%;
+            height: 6%;
+        }
+
+        /*
+         * Footer appears after scrolling
+         */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /*
+         * Better phone behavior
+         */
+        @media (max-width: 768px) {
+            body {
+                background-position: center center;
+                background-size: cover;
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="page">
+        <h1>Title</h1>
+        <p>Click on the frames to navigate....</p>
+    </section>
+
+<div class="image-wrapper">
+    <img src="./images/skizze.png" alt="Sketch">
+
+    <a href="page1.html" class="pagelink pagelink-1"></a>
+
+    <a href="page2.html" class="pagelink pagelink-2"></a>
+
+    <a href="page3.html" class="pagelink pagelink-3"></a>
+</div>
+
+    <footer id="footer">
+        For testing scroll interaction → appearing project description?
+    </footer>
+
+    <script>
+        const footer = document.getElementById("footer");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 150) {
+                footer.classList.add("visible");
+            } else {
+                footer.classList.remove("visible");
+            }
+        });
+    </script>
+
+</body>
+</html>
