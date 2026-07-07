@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <title>Page 3</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <style> 
+body {
+  margin: 0;
+  background: #111;
+}
+
+.feed {
+  height: 600vh;
+  position: relative;
+}
+
+.feed-window {
+  position: sticky;
+  top: 0;
+
+  height: 100vh;
+
+  display: flex;
+  justify-content: center; /* horizontal centre */
+  align-items: center;     /* vertical centre */
+
+  overflow: hidden;
+}
+
+.posts { 
+    width: 35vw; 
+    min-width: 350px; 
+    max-width: 500px; 
+    height: 80vh; 
+    background: rgba(255,255,255,0.05); 
+    
+    overflow: hidden; }
+
+.posts-inner {
+  will-change: transform;
+}
+
+.post {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  display: block;
+
+}
+    </style>
+</head>
+
+<body>
+<section class="hero">
+  <div class="wheel"></div>
+</section>
+
+<section class="feed">
+<div class="feed-window">
+  <div class="posts">
+    <div class="posts-inner">
+      <img class="post" src="./images/1.jpg">
+      <img class="post" src="./images/2.jpg">
+      <img class="post" src="./images/3.jpg">
+    </div>
+  </div>
+</div>
+</section>
+
+<script>    
+    const posts = document.querySelector('.posts');
+    const inner = document.querySelector('.posts-inner');
+
+    window.addEventListener('scroll', () => {
+        inner.style.transform =
+            `translateY(${-window.scrollY}px)`;
+    });
+</script>
+</body>
