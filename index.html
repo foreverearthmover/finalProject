@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Week 4</title>
+    <title>Homepage</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,7 +14,8 @@
 
         body {
             position: relative;
-            min-height: 200vh; 
+            min-height: 150vh; 
+            font-family: Consolas, Helvetica;
         }
 
         .page {
@@ -23,6 +24,7 @@
             max-width: 800px;
             align-items: center;
             margin: 3rem auto;
+            margin-bottom: 0.1rem;
             z-index: 1;
             position: relative;
         }
@@ -42,9 +44,6 @@
 
         .pagelink {
             position: absolute;
-
-            border: 2px solid red;
-            background: rgba(255,0,0,0.2);
         }
 
         .pagelink-1 {
@@ -109,14 +108,13 @@
 </head>
 
 <body>
-
     <section class="page">
         <h1>Title</h1>
         <p>Click on the frames to navigate....</p>
     </section>
 
 <div class="image-wrapper">
-    <img src="./images/skizze.png" alt="Sketch">
+    <img src="./images/image.webp" alt="Sketch">
 
     <a href="page1.html" class="pagelink pagelink-1"></a>
 
@@ -140,6 +138,5 @@
             }
         });
     </script>
-
 </body>
 </html>
