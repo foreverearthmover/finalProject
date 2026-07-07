@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Page 1</title> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>What do you want to know?</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fcfcfc;
+  color: rgb(0, 0, 0);
+  font-family: Consolas, Helvetica;
+  min-height: 100vh;
+}
+
+/* ---------- Question Screen ---------- */
+
+#question-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+input {
+  width: 350px;
+  max-width: 80%;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+/* ---------- Selection Screen ---------- */
+
+#selection-screen {
+  display: none;
+  min-height: 100vh;
+  padding: 4rem;
+}
+
+#objects {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.object {
+  width: 140px;
+  height: 180px;
+  background: #ffffff;
+  border: 1px solid #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform .3s;
+}
+
+.object:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- Modal ---------- */
+
+#modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.26);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  /* blur effect */
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  width: 500px;
+  max-width: 90%;
+  background: #fbfbfb;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.close {
+  margin-top: 1rem;
+}
+
+</style>
+</head>
+<body>
+
+<!-- QUESTION -->
+
+<section id="question-screen">
+  <h1>What do you want to know?</h1>
+
+  <input
+    type="text"
+    id="question"
+    placeholder="Type your question..."
+  >
+
+  <button id="begin">
+    Continue
+  </button>
+</section>
+
+<!-- OBJECTS -->
+
+<section id="selection-screen">
+
+  <h2 id="your-question"></h2>
+
+  <div id="objects"></div>
+
+</section>
+
+<!-- MODAL -->
+
+<div id="modal">
+  <div class="modal-content">
+
+    <img id="result-image">
+
+    <h2 id="result-title"></h2>
+
+    <p id="result-text"></p>
+
+    <button class="close">
+      Close
+    </button>
+
+  </div>
+</div>
+
+<script>
+    const items = [
+  {
+    name: "1",
+    images: [
+      "images/tarot1.jpg"
+    ],
+    text:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+
+  {
+    name: "2",
+    images: [
+      "images/key1.jpg",
+      "images/key2.jpg"
+    ],
+    text:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+
+  {
+    name: "3",
+    images: [
+      "images/clock1.jpg",
+      "images/clock2.jpg"
+    ],
+    text:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+
+  {
+    name: "4",
+    images: [
+      "images/shell1.jpg",
+      "images/shell2.jpg"
+    ],
+    text:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  }
+];
+
+const questionScreen =
+  document.getElementById("question-screen");
+
+const selectionScreen =
+  document.getElementById("selection-screen");
+
+const objects =
+  document.getElementById("objects");
+
+document
+  .getElementById("begin")
+  .addEventListener("click", startExperience);
+
+function startExperience() {
+
+  const question =
+    document.getElementById("question").value;
+
+  document.getElementById(
+    "your-question"
+  ).textContent =
+    `"${question}"`;
+
+  questionScreen.style.display = "none";
+  selectionScreen.style.display = "block";
+
+  createObjects();
+}
+
+function createObjects() {
+
+  objects.innerHTML = "";
+
+  const shuffled =
+    [...items].sort(() => Math.random() - 0.5);
+
+  shuffled.forEach(item => {
+
+    const div =
+      document.createElement("div");
+
+    div.classList.add("object");
+
+    div.textContent = "?";
+
+    div.addEventListener(
+      "click",
+      () => revealItem(item)
+    );
+
+    objects.appendChild(div);
+  });
+}
+
+function revealItem(item) {
+
+  const image =
+    item.images[
+      Math.floor(
+        Math.random() *
+        item.images.length
+      )
+    ];
+
+  document.getElementById(
+    "result-image"
+  ).src = image;
+
+  document.getElementById(
+    "result-title"
+  ).textContent = item.name;
+
+  document.getElementById(
+    "result-text"
+  ).textContent = item.text;
+
+  document.getElementById(
+    "modal"
+  ).style.display = "flex";
+}
+
+document
+  .querySelector(".close")
+  .addEventListener("click", () => {
+    document.getElementById(
+      "modal"
+    ).style.display = "none";
+  });
+
+</script>
+
+</body>
+</html>
