@@ -7,9 +7,15 @@
 
 
     <style> 
+html {
+  /* pin the gradient to the viewport so it never scrolls */
+  min-height: 100%;
+  background: linear-gradient(to bottom, #303030 0%, #0c0c0c 100%);
+  background-attachment: fixed;
+}
+
 body {
   margin: 0;
-  background: #111;
 }
 
 .feed {
@@ -50,6 +56,7 @@ body {
   display: block;
 
 }
+
     </style>
 </head>
 
@@ -70,13 +77,25 @@ body {
 </div>
 </section>
 
-<script>    
+<script>
+    const feed = document.querySelector('.feed');
     const posts = document.querySelector('.posts');
     const inner = document.querySelector('.posts-inner');
 
-    window.addEventListener('scroll', () => {
-        inner.style.transform =
-            `translateY(${-window.scrollY}px)`;
-    });
+    function updateScroll() {
+        const feedTop = feed.offsetTop;
+        const scrollRange = feed.offsetHeight - window.innerHeight; // distance the section is "sticky-active" for
+        const maxTranslate = Math.max(0, inner.scrollHeight - posts.clientHeight); // how far the inner content can move
+
+        let progress = (window.scrollY - feedTop) / scrollRange;
+        progress = Math.min(Math.max(progress, 0), 1); // clamp 0..1
+
+        inner.style.transform = `translateY(${-progress * maxTranslate}px)`;
+    }
+
+    window.addEventListener('scroll', updateScroll);
+    window.addEventListener('resize', updateScroll);
+    updateScroll();
 </script>
 </body>
+</html>
